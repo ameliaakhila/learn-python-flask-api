@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Flask Api</title>
+    <!-- Contoh penggunaan CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="welcome-container">
+        <div class="welcome-content">
+            <img src="{{ url_for('static', filename='logo-flask.png') }}" alt="Logo" class="welcome-logo">
+            <h1>Selamat Datang, {{ nama_kirim }}!</h1>
+            <p class="welcome-subtitle">Mari Belajar Flask API dengan Mudah</p>
+            <button onclick="salam()">Klik Aku</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

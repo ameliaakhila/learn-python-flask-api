@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Flask Api</title>
+</head>
+
+<body>
+    <h1>Selamat Datang, {{ nama_kirim }}!</h1>
+    <p>Status: {{ "Login" if logged_in else "Belum Login" }}</p>
+    <ul>
+        {% if logged_in %}
+        {% for item in items_list %}
+        <li>{{ item }}</li>
+        {% endfor %}
+        {% else %}
+        <li>{{ items_list[0] }}</li>
+        {% endif %}
+    </ul>
+    <p>Silakan klik tombol di bawah untuk {{ "Logout" if logged_in else "Login" }}.</p>
+
+    <!-- Login Button -->
+    {% if not logged_in %}
+    <form action="/login" method="post">
+        <button type="submit">Login</button>
+    </form>
+    {% else %}
+    <form action="/logout" method="post">
+        <button type="submit">Logout</button>
+    </form>
+    {% endif %}
+</body>
+
+</html>

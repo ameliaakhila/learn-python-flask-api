@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi Belajar Flask API</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+
+<body>
+    <div class="documentation-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>📚 Dokumentasi Flask</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul id="nav-menu">
+                    <li><a href="#intro" class="nav-link active" data-section="intro">Pengenalan Flask</a></li>
+                    <li><a href="#instalasi" class="nav-link" data-section="instalasi">Instalasi & Setup</a></li>
+                    <li><a href="#minimal-app" class="nav-link" data-section="minimal-app">Minimal Application</a></li>
+                    <li><a href="#routing" class="nav-link" data-section="routing">Routing & URL</a></li>
+                    <li><a href="#templates" class="nav-link" data-section="templates">Template & Rendering</a></li>
+                    <li><a href="#static-files" class="nav-link" data-section="static-files">Static Files</a></li>
+                    <li><a href="#request-data" class="nav-link" data-section="request-data">Request Data</a></li>
+                    <li><a href="#responses" class="nav-link" data-section="responses">Responses & Errors</a></li>
+                    <li><a href="#debug-mode" class="nav-link" data-section="debug-mode">Debug Mode</a></li>
+                    <li><a href="#sessions" class="nav-link" data-section="sessions">Sessions & Cookies</a></li>
+                    <li><a href="#api-ml" class="nav-link" data-section="api-ml">API & Machine Learning</a></li>
+                    <li><a href="#praktik" class="nav-link" data-section="praktik">Praktek Langsung</a></li>
+                    <li><a href="#deployment" class="nav-link" data-section="deployment">Deployment</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Intro Section -->
+            <section id="intro" class="content-section active">
+                <h1>🚀 Pengenalan Flask</h1>
+                <div class="content-card">
+                    <h2>Apa itu Flask?</h2>
+                    <p>Flask adalah sebuah <strong>micro web framework</strong> berbasis Python yang dirancang untuk
+                        membangun aplikasi web dengan cara yang sederhana dan fleksibel. Framework ini sangat cocok
+                        untuk pemula karena memiliki dokumentasi yang baik dan kurva pembelajaran yang cukup mudah.</p>
+
+                    <h3>Karakteristik Flask:</h3>
+                    <ul>
+                        <li>✅ <strong>Lightweight</strong> - Framework minimal tanpa fitur yang berlebihan</li>
+                        <li>✅ <strong>Fleksibel</strong> - Anda bebas memilih tools dan library yang diinginkan</li>
+                        <li>✅ <strong>Built-in Development Server</strong> - Server testing bawaan untuk development
+                        </li>
+                        <li>✅ <strong>RESTful Support</strong> - Mudah untuk membuat REST API</li>
+                        <li>✅ <strong>Jinja2 Templating</strong> - Template engine yang powerful</li>
+                        <li>✅ <strong>Werkzeug Integration</strong> - WSGI utility library yang robust</li>
+                    </ul>
+
+                    <h3>Kapan Menggunakan Flask?</h3>
+                    <div class="comparison">
+                        <div class="use-when">
+                            <strong>Gunakan Flask ketika:</strong>
+                            <ul>
+                                <li>Membentuk aplikasi skala kecil hingga menengah</li>
+                                <li>Membutuhkan fleksibilitas tinggi</li>
+                                <li>Membuat REST API atau microservices</li>
+                                <li>Ingin belajar web development dari dasar</li>
+                            </ul>
+                        </div>
+                        <div class="dont-use">
+                            <strong>Gunakan framework lain jika:</strong>
+                            <ul>
+                                <li>Membutuhkan banyak built-in features (gunakan Django)</li>
+                                <li>Proyek sangat besar dan kompleks</li>
+                                <li>Memerlukan ORM bawaan yang matang</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Instalasi Section -->
+            <section id="instalasi" class="content-section">
+                <h1>📦 Instalasi & Setup</h1>
+                <div class="content-card">
+                    <h2>Langkah 1: Setup Virtual Environment</h2>
+                    <p><strong>Virtual Environment</strong> adalah folder terisolasi yang berisi dependencies Python
+                        spesifik untuk project Anda. Ini sangat penting untuk menghindari konflik antar project.</p>
+
+                    <div class="code-block">
+                        <pre><code># Windows
+python -m venv venv
+venv\Scripts\activate
+
+# macOS/Linux
+python3 -m venv venv
+source venv/bin/activate</code></pre>
+                    </div>
+
+                    <h2>Langkah 2: Install Flask</h2>
+                    <p>Setelah virtual environment aktif (perhatikan nama venv di awal terminal), install Flask dengan
+                        pip:</p>
+
+                    <div class="code-block">
+                        <pre><code>pip install flask</code></pre>
+                    </div>
+
+                    <h2>Langkah 3: Buat requirements.txt</h2>
+                    <p>File ini menyimpan list package yang digunakan di project:</p>
+
+                    <div class="code-block">
+                        <pre><code>pip freeze > requirements.txt</code></pre>
+                    </div>
+
+                    <h2>Struktur Folder Project</h2>
+                    <div class="code-block">
+                        <pre><code>project/
+├── venv/                    # Virtual environment
+├── app.py                   # File aplikasi utama
+├── requirements.txt         # Dependencies
+├── static/                  # File statis (CSS, JS, images)
+│   ├── style.css
+│   └── script.js
+└── templates/               # File HTML templates
+    └── index.html</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Minimal App Section -->
+            <section id="minimal-app" class="content-section">
+                <h1>⚙️ Minimal Application</h1>
+                <div class="content-card">
+                    <h2>Aplikasi Flask Paling Sederhana</h2>
+                    <p>Berikut adalah struktur minimal aplikasi Flask yang bisa langsung dijalankan:</p>
+
+                    <div class="code-block">
+                        <pre><code>from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return 'Halo, Dunia!'
+
+if __name__ == '__main__':
+    app.run(debug=True)</code></pre>
+                    </div>
+
+                    <h2>Menjalankan Aplikasi</h2>
+                    <div class="code-block">
+                        <pre><code>python app.py</code></pre>
+                    </div>
+
+                    <p>Aplikasi akan berjalan di <code>http://localhost:5000</code></p>
+
+                    <h2>Penjelasan Kode:</h2>
+                    <ul>
+                        <li><code>from flask import Flask</code> - Import module Flask</li>
+                        <li><code>app = Flask(__name__)</code> - Inisialisasi aplikasi Flask</li>
+                        <li><code>@app.route('/')</code> - Decorator untuk define route</li>
+                        <li><code>def hello():</code> - Function yang handle request</li>
+                        <li><code>app.run()</code> - Menjalankan development server</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Routing Section -->
+            <section id="routing" class="content-section">
+                <h1>🛣️ Routing & URL</h1>
+                <div class="content-card">
+                    <h2>Memahami Routes</h2>
+                    <p>Route adalah mapping antara URL dengan fungsi Python yang akan dijalankan.</p>
+
+                    <h3>Basic Routing</h3>
+                    <div class="code-block">
+                        <pre><code>@app.route('/')
+def index():
+    return 'Home'
+
+@app.route('/about')
+def about():
+    return 'About Page'</code></pre>
+                    </div>
+
+                    <h3>Dynamic Routes (URL Parameters)</h3>
+                    <div class="code-block">
+                        <pre><code>@app.route('/user/&lt;name&gt;')
+def greet(name):
+    return f'Halo, {name}!'
+
+# Contoh: /user/Amelia → "Halo, Amelia!"</code></pre>
+                    </div>
+
+                    <h3>Multiple Methods (GET, POST)</h3>
+                    <div class="code-block">
+                        <pre><code>@app.route('/form', methods=['GET', 'POST'])
+def form():
+    if request.method == 'POST':
+        # Handle form submission
+        return 'Data diterima!'
+    return 'Form page'</code></pre>
+                    </div>
+
+                    <h3>URL Building dengan url_for()</h3>
+                    <div class="code-block">
+                        <pre><code>from flask import url_for
+
+# Di template atau view
+url_for('index')  # Menghasilkan '/'
+url_for('greet', name='Amelia')  # Menghasilkan '/user/Amelia'</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Templates Section -->
+            <section id="templates" class="content-section">
+                <h1>📝 Template & Rendering</h1>
+                <div class="content-card">
+                    <h2>Menggunakan Jinja2 Templates</h2>
+                    <p>Flask menggunakan <strong>Jinja2</strong> sebagai template engine untuk render HTML dinamis.</p>
+
+                    <h3>Render Template dari View</h3>
+                    <div class="code-block">
+                        <pre><code>from flask import render_template
+
+@app.route('/hello/&lt;name&gt;')
+def hello(name):
+    return render_template('hello.html', 
+                         nama=name, 
+                         tahun=2024)</code></pre>
+                    </div>
+
+                    <h3>Template HTML (hello.html)</h3>
+                    <div class="code-block">
+                        <pre><code>{% raw %}&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+    &lt;h1&gt;Halo, {{ nama }}!&lt;/h1&gt;
+    &lt;p&gt;Tahun: {{ tahun }}&lt;/p&gt;
+    
+    &lt;!-- If Statement --&gt;
+    {% if tahun > 2023 %}
+        &lt;p&gt;Tahun baru!&lt;/p&gt;
+    {% endif %}
+    
+    &lt;!-- Loop --&gt;
+    &lt;ul&gt;
+    {% for item in items %}
+        &lt;li&gt;{{ item }}&lt;/li&gt;
+    {% endfor %}
+    &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;{% endraw %}</code></pre>
+                    </div>
+
+                    <h2>Template Inheritance (Base Template)</h2>
+                    <p>Untuk reusability, gunakan template base dan extend dengan child templates.</p>
+
+                    <div class="code-block">
+                        <pre><code>{% raw %}<!-- base.html -->
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;{% block title %}Default Title{% endblock %}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;Navigation&lt;/header&gt;
+    
+    &lt;main&gt;
+        {% block content %}{% endblock %}
+    &lt;/main&gt;
+    
+    &lt;footer&gt;Copyright 2024&lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;{% endraw %}</code></pre>
+                    </div>
+
+                    <div class="code-block">
+                        <pre><code>{% raw %}<!-- index.html (child) -->
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+    &lt;h1&gt;Selamat Datang!&lt;/h1&gt;
+    &lt;p&gt;Ini adalah konten halaman home.&lt;/p&gt;
+{% endblock %}{% endraw %}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Static Files Section -->
+            <section id="static-files" class="content-section">
+                <h1>📂 Static Files</h1>
+                <div class="content-card">
+                    <h2>Mengelola CSS, JavaScript, dan Images</h2>
+                    <p>Static files (CSS, JS, images) disimpan di folder <code>static/</code> dan diakses dengan
+                        <code>url_for()</code>.</p>
+
+                    <h3>Struktur Folder</h3>
+                    <div class="code-block">
+                        <pre><code>project/
+└── static/
+    ├── css/
+    │   └── style.css
+    ├── js/
+    │   └── script.js
+    └── images/
+        └── logo.png</code></pre>
+                    </div>
+
+                    <h3>Menggunakan Static Files di Template</h3>
+                    <div class="code-block">
+                        <pre><code>{% raw %}&lt;!-- CSS --&gt;
+&lt;link rel="stylesheet" 
+      href="{{ url_for('static', filename='css/style.css') }}"&gt;
+
+&lt;!-- JavaScript --&gt;
+&lt;script src="{{ url_for('static', filename='js/script.js') }}"&gt;&lt;/script&gt;
+
+&lt;!-- Image --&gt;
+&lt;img src="{{ url_for('static', filename='images/logo.png') }}" 
+     alt="Logo"&gt;{% endraw %}</code></pre>
+                    </div>
+
+                    <h2>Mengapa menggunakan url_for()?</h2>
+                    <ul>
+                        <li>✅ Otomatis adjust jika base URL berubah</li>
+                        <li>✅ Lebih aman dan maintainable</li>
+                        <li>✅ Support untuk file versioning (cache busting)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Request Data Section -->
+            <section id="request-data" class="content-section">
+                <h1>📥 Request Data</h1>
+                <div class="content-card">
+                    <h2>Mengakses Data dari Client</h2>
+                    <p>Flask menyediakan object <code>request</code> untuk mengakses data yang dikirim dari client.</p>
+
+                    <h3>GET Parameters (Query String)</h3>
+                    <div class="code-block">
+                        <pre><code>from flask import request
+
+@app.route('/search')
+def search():
+    # URL: /search?q=python&page=1
+    query = request.args.get('q')
+    page = request.args.get('page', default=1, type=int)
+    return f'Search: {query}, Page: {page}'</code></pre>
+                    </div>
+
+                    <h3>POST Data (Form Data)</h3>
+                    <div class="code-block">
+                        <pre><code>@app.route('/login', methods=['POST'])
+def login():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    # Process login
+    return 'Login success'</code></pre>
+                    </div>
+
+                    <h3>JSON Data (API)</h3>
+                    <div class="code-block">
+                        <pre><code>@app.route('/api/data', methods=['POST'])
+def api_data():
+    # Request body: {"name": "John", "age": 30}
+    data = request.get_json()
+    name = data.get('name')
+    age = data.get('age')
+    return {'message': f'Hello {name}'}
+
+# Return as JSON (otomatis di-serialize)
+from flask import jsonify
+return jsonify({'status': 'success', 'data': data})</code></pre>
+                    </div>
+
+                    <h3>Akses File Upload</h3>
+                    <div class="code-block">
+                        <pre><code>@app.route('/upload', methods=['POST'])
+def upload():
+    file = request.files['file']
+    if file:
+        file.save(f'uploads/{file.filename}')
+        return 'File uploaded'</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Responses & Errors Section -->
+            <section id="responses" class="content-section">
+                <h1>📤 Responses & Error Handling</h1>
+                <div class="content-card">
+                    <h2>Jenis-jenis Response</h2>
+
+                    <h3>String Response</h3>
+                    <div class="code-block">
+                        <pre><code>@app.route('/')
+def hello():
+    return 'Hello World'</code></pre>
+                    </div>
+
+                    <h3>JSON Response</h3>
+                    <div class="code-block">
+                        <pre><code>from flask import jsonify
+
+@app.route('/api/users')
+def get_users():
+    users = [
+        {'id': 1, 'name': 'Alice'},
+        {'id': 2, 'name': 'Bob'}
+    ]
+    return jsonify(users)
+    # atau: return jsonify({'users': users})</code></pre>
+                    </div>
+
+                    <h3>Custom Status Code & Headers</h3>
+                    <div class="code-block">
+                        <pre><code>@app.route('/created', methods=['POST'])
+def create():
+    # Return dengan status code custom
+    return 'Created', 201
+
+# Dengan headers custom
+return 'Success', 200, {'X-Custom-Header': 'value'}</code></pre>
+                    </div>
+
+                    <h2>Error Handling</h2>
+                    <h3>Abort (Hentikan & Return Error)</h3>
+                    <div class="code-block">
+                        <pre><code>from flask import abort
+
+@app.route('/user/&lt;id&gt;')
+def get_user(id):
+    if not is_valid_user(id):
+        abort(404)  # Not Found
+    return f'User {id}'</code></pre>
+                    </div>
+
+                    <h3>Custom Error Handler</h3>
+                    <div class="code-block">
+                        <pre><code>@app.errorhandler(404)
+def page_not_found(error):
+    return 'Page not found', 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return 'Internal server error', 500</code></pre>
+                    </div>
+
+                    <h2>Redirect & HTML Response</h2>
+                    <div class="code-block">
+                        <pre><code>from flask import redirect, url_for
+
+@app.route('/old-url')
+def old():
+    return redirect(url_for('new_page'))
+
+@app.route('/new-url')
+def new_page():
+    return 'New page'</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Debug Mode Section -->
+            <section id="debug-mode" class="content-section">
+                <h1>🐛 Debug Mode</h1>
+                <div class="content-card">
+                    <h2>Mengapa Debug Mode Penting?</h2>
+                    <p>Debug mode memudahkan development dengan fitur-fitur seperti auto-reload dan interactive
+                        debugger.</p>
+
+                    <h3>Mengaktifkan Debug Mode</h3>
+                    <div class="code-block">
+                        <pre><code># Cara 1: Langsung di app.run()
+app.run(debug=True)
+
+# Cara 2: Environment variable
+# Windows
+set FLASK_ENV=development
+set FLASK_DEBUG=1
+flask run
+
+# macOS/Linux
+export FLASK_ENV=development
+export FLASK_DEBUG=1
+flask run</code></pre>
+                    </div>
+
+                    <h2>Fitur Debug Mode</h2>
+                    <ul>
+                        <li>✅ <strong>Auto Reload</strong> - Server otomatis restart saat file berubah</li>
+                        <li>✅ <strong>Interactive Debugger</strong> - Console browser untuk debug error</li>
+                        <li>✅ <strong>Better Error Messages</strong> - Pesan error yang lebih detail</li>
+                        <li>⚠️ <strong>Security Risk</strong> - JANGAN gunakan di production!</li>
+                    </ul>
+
+                    <h2>Production Mode</h2>
+                    <p>Di production, debug mode HARUS dimatikan:</p>
+                    <div class="code-block">
+                        <pre><code>::app.run(debug=False)  # atau tidak usah debug parameter</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sessions Section -->
+            <section id="sessions" class="content-section">
+                <h1>🔐 Sessions & Cookies</h1>
+                <div class="content-card">
+                    <h2>Memahami Sessions</h2>
+                    <p>Sessions memungkinkan Anda menyimpan data user yang persisten across multiple requests.</p>
+
+                    <h3>Menggunakan Sessions</h3>
+                    <div class="code-block">
+                        <pre><code>from flask import session
+import secrets
+
+app.secret_key = secrets.token_hex(16)
+
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form.get('username')
+    session['user'] = username  # Set session
+    return 'Logged in'
+
+@app.route('/profile')
+def profile():
+    user = session.get('user')  # Get session
+    if not user:
+        return redirect(url_for('login'))
+    return f'Welcome {user}'
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)  # Clear session
+    return 'Logged out'</code></pre>
+                    </div>
+
+                    <h2>Cookies</h2>
+                    <p>Cookies adalah data yang disimpan di browser client.</p>
+                    <div class="code-block">
+                        <pre><code>from flask import make_response
+
+@app.route('/set-cookie')
+def set_cookie():
+    resp = make_response('Cookie set')
+    resp.set_cookie('user_id', '123', max_age=3600)
+    return resp
+
+@app.route('/get-cookie')
+def get_cookie():
+    user_id = request.cookies.get('user_id')
+    return f'User ID: {user_id}'</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- API & ML Section -->
+            <section id="api-ml" class="content-section">
+                <h1>🤖 API & Machine Learning</h1>
+                <div class="content-card">
+                    <h2>Membuat REST API dengan Flask</h2>
+                    <p>Flask sangat cocok untuk membuat REST API yang kemudian bisa diintegrasikan dengan ML model.</p>
+
+                    <h3>Contoh Simple ML Prediction API</h3>
+                    <div class="code-block">
+                        <pre><code>from flask import request, jsonify
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+# Train model (simplified)
+X = np.array([[2, 100], [3, 150], [4, 200]])  # [kamar, luas]
+y = np.array([300, 450, 600])  # harga (juta)
+model = LinearRegression()
+model.fit(X, y)
+
+@app.route('/api/predict', methods=['POST'])
+def predict():
+    data = request.get_json()
+    kamar = float(data['kamar'])
+    luas = float(data['luas'])
+    
+    # Prediction
+    X_input = np.array([[kamar, luas]])
+    harga = model.predict(X_input)[0]
+    
+    return jsonify({
+        'status': 'success',
+        'harga_prediksi': round(harga, 2)
+    })</code></pre>
+                    </div>
+
+                    <h2>Flow API Prediction</h2>
+                    <div class="flow-diagram">
+                        <div class="flow-box">Client (JavaScript)</div>
+                        <div class="flow-arrow">→ POST /api/predict</div>
+                        <div class="flow-box">Flask API</div>
+                        <div class="flow-arrow">→ Load Model</div>
+                        <div class="flow-box">ML Model</div>
+                        <div class="flow-arrow">→ Return JSON</div>
+                        <div class="flow-box">Client (Display Result)</div>
+                    </div>
+
+                    <h3>Memanggil API dari JavaScript</h3>
+                    <div class="code-block">
+                        <pre><code>// JavaScript di frontend
+fetch('/api/predict', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        kamar: 3,
+        luas: 150
+    })
+})
+.then(response => response.json())
+.then(data => {
+    console.log('Prediksi:', data.harga_prediksi);
+    document.getElementById('result').textContent = data.harga_prediksi;
+})
+.catch(error => console.error('Error:', error));</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Praktik Langsung Section -->
+            <section id="praktik" class="content-section">
+                <h1>💻 Praktek Langsung</h1>
+                <div class="content-card">
+                    <h2>Demo Prediksi Harga Rumah</h2>
+                    <p>Cobalah API prediction yang sudah terintegrasi dengan backend Flask:</p>
+
+                    <form id="prediction-form" class="prediction-form">
+                        <div class="form-group">
+                            <label for="umur">Umur Rumah (tahun):</label>
+                            <input type="number" id="umur" name="umur" value="5" min="0" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="luas">Luas Tanah (m²):</label>
+                            <input type="number" id="luas" name="luas" value="100" min="10" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="kamar">Jumlah Kamar:</label>
+                            <input type="number" id="kamar" name="kamar" value="3" min="1" required>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Prediksi Harga</button>
+                    </form>
+
+                    <div id="prediction-result" class="prediction-result" style="display: none;">
+                        <h3>Hasil Prediksi:</h3>
+                        <div class="result-box">
+                            <p id="prediction-text"></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deployment Section -->
+            <section id="deployment" class="content-section">
+                <h1>🚀 Deployment</h1>
+                <div class="content-card">
+                    <h2>Menyiapkan Aplikasi untuk Production</h2>
+
+                    <h3>Checklist Pre-Deployment</h3>
+                    <ul>
+                        <li>☐ Set <code>debug=False</code> di app.run()</li>
+                        <li>☐ Gunakan secret key yang kuat</li>
+                        <li>☐ Set environment variable <code>FLASK_ENV=production</code></li>
+                        <li>☐ Update requirements.txt dengan semua dependencies</li>
+                        <li>☐ Test aplikasi di environment production</li>
+                    </ul>
+
+                    <h2>Pilihan Deployment</h2>
+
+                    <h3>1. Heroku</h3>
+                    <div class="code-block">
+                        <pre><code># Buat Procfile
+echo "web: gunicorn app:app" > Procfile
+
+# Login dan deploy
+heroku login
+heroku create nama-app
+git push heroku main</code></pre>
+                    </div>
+
+                    <h3>2. PythonAnywhere</h3>
+                    <p>1. Upload file ke PythonAnywhere</p>
+                    <p>2. Setup virtual environment</p>
+                    <p>3. Configure WSGI file</p>
+                    <p>4. Reload web app</p>
+
+                    <h3>3. Hosting VPS (AWS/DigitalOcean)</h3>
+                    <div class="code-block">
+                        <pre><code>pip install gunicorn
+gunicorn -w 4 -b 0.0.0.0:5000 app:app
+
+# Gunakan Nginx sebagai reverse proxy
+# Setup systemd service untuk auto-start</code></pre>
+                    </div>
+
+                    <h2>Production WSGI Server</h2>
+                    <p>Development server (Flask built-in) TIDAK cocok untuk production. Gunakan:</p>
+                    <ul>
+                        <li>✅ <strong>Gunicorn</strong> - Simple dan reliable</li>
+                        <li>✅ <strong>uWSGI</strong> - Lebih powerful dan flexible</li>
+                        <li>✅ <strong>mod_wsgi</strong> - Untuk Apache</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Resources Section -->
+            <section id="resources" class="content-section">
+                <h1>📖 Resources & Best Practices</h1>
+                <div class="content-card">
+                    <h2>Best Practices Flask</h2>
+                    <ul>
+                        <li>✅ Gunakan blueprints untuk organize large applications</li>
+                        <li>✅ Implement proper error handling dan logging</li>
+                        <li>✅ Use database ORM (SQLAlchemy) untuk data persistence</li>
+                        <li>✅ Implement authentication & authorization</li>
+                        <li>✅ Write unit tests untuk setiap functionality</li>
+                        <li>✅ Use environment variables untuk config sensitive</li>
+                        <li>✅ Implement CORS untuk cross-origin requests</li>
+                        <li>✅ Rate limiting untuk API endpoints</li>
+                    </ul>
+
+                    <h2>Recommended Tools & Libraries</h2>
+                    <div class="tools-grid">
+                        <div class="tool-item">
+                            <strong>Flask-SQLAlchemy</strong><br>ORM untuk database
+                        </div>
+                        <div class="tool-item">
+                            <strong>Flask-JWT-Extended</strong><br>JWT authentication
+                        </div>
+                        <div class="tool-item">
+                            <strong>Flask-CORS</strong><br>Handle CORS
+                        </div>
+                        <div class="tool-item">
+                            <strong>Flask-Migrate</strong><br>Database migrations
+                        </div>
+                        <div class="tool-item">
+                            <strong>pytest</strong><br>Testing framework
+                        </div>
+                        <div class="tool-item">
+                            <strong>python-dotenv</strong><br>Manage environment variables
+                        </div>
+                    </div>
+
+                    <h2>Dokumentasi Official</h2>
+                    <ul>
+                        <li>📚 <a href="https://flask.palletsprojects.com/" target="_blank">Flask Documentation</a></li>
+                        <li>📚 <a href="https://jinja.palletsprojects.com/" target="_blank">Jinja2 Documentation</a>
+                        </li>
+                        <li>📚 <a href="https://werkzeug.palletsprojects.com/" target="_blank">Werkzeug
+                                Documentation</a></li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+
+</html>
