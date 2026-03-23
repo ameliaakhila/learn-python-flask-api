@@ -331,7 +331,7 @@ Project ini open source dan tersedia di bawah MIT License.
 
 ---
 
-## 👤 Author
+## 👤 Annezetya
 
 Created dengan ❤️ untuk pembelajaran Flask dan web development.
 
